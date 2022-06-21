@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const { engine } = require("express-handlebars");
-const { appendFileSync } = require("fs");
 
 // Importando las Variables de Entorno
 const { port } = require("./config");
