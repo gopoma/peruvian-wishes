@@ -1,6 +1,6 @@
 class AuthController {
   static showLoginView(req, res) {
-    return res.json({success:true});
+    return res.render("login");
   }
 }
 
