@@ -20,7 +20,20 @@ app.set("view engine", "hbs");
 app.set("views", path.resolve(__dirname, "views"));
 
 app.get("/", (req, res) => {
-  return res.json({message: "Peruvian Wishes"});
+  return res.render("home", {
+    user: {
+      loggedIn: 1,
+      name: "Gustavo"
+    },
+    programmingLanguages: [
+      "JavaScript",
+      "Python",
+      "Java",
+      "Perl",
+      "C++",
+      "TypeScript"
+    ]
+  });
 });
 
 // Utilizando los routes

@@ -1,0 +1,11 @@
+<h1>Home</h1>
+
+{{#if user.loggedIn}}
+  <p>{{user.name}}</p>
+{{/if}}
+
+<ul>
+  {{#each programmingLanguages}}
+    <li>{{this}}</li>
+  {{/each}}
+</ul>
