@@ -18,6 +18,10 @@ app.engine("hbs", engine({
 app.set("view engine", "hbs");
 app.set("views", path.resolve(__dirname, "views"));
 
+// Middleware
+app.use(express.static(path.join(__dirname, "static")));
+app.use(express.urlencoded({extended:true}));
+
 app.get("/", (req, res) => {
   return res.render("home", {
     user: {

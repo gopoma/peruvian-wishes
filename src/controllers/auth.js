@@ -1,5 +1,9 @@
+const client = require("../libs/db");
+
 class AuthController {
-  static showLoginView(req, res) {
+  static async showLoginView(req, res) {
+    const users = await client.user.findMany();
+    console.log(users);
     return res.render("login");
   }
 }
