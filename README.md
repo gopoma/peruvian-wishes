@@ -14,6 +14,10 @@ A BackEnd aplication inspired by Rappi.
 
 4. Se instancia el PrismaClient como cliente y se exporta hacia los controladores.
 
+5. Se configuró `TailwindCSS` de acuerdo a la Documentación Oficial.
+
+6. Se desarrolló la lógica para el SignUp de users.
+
 ### Curiosidades:
 
 * En el .env se puede hacer uso de la Interpolación de Variables:
