@@ -4,8 +4,19 @@
   <p>{{user.name}}</p>
 {{/if}}
 
-<ul>
-  {{#each programmingLanguages}}
-    <li>{{this}}</li>
+<section style="
+  display:flex;
+  flex-direction:column;
+  gap:1.2rem;
+">
+  {{#each users}}
+    <article style="
+      color:#FFF;
+      background-color:#333;
+      padding:1.2rem;
+    ">
+      <h3>{{this.username}}</h3>
+      <p>{{this.email}}</p>
+    </article>
   {{/each}}
-</ul>
+</section>

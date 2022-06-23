@@ -15,6 +15,6 @@ model User {
   username String @unique @db.VarChar(255)
   email String @unique @db.VarChar(255)
   password String @db.VarChar(61)
-  birhtday DateTime? @db.Date
+  birthday DateTime? @db.Date
   active Boolean @default(true)
 }

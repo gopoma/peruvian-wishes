@@ -1,9 +1,10 @@
 const express = require("express");
 const path = require("path");
 const { engine } = require("express-handlebars");
+const session = require("express-session");
 
 // Importando las Variables de Entorno
-const { port } = require("./config");
+const { port, sessionSecret } = require("./config");
 
 // Importando los routes
 const auth = require("./routes/auth");
@@ -21,21 +22,24 @@ app.set("views", path.resolve(__dirname, "views"));
 // Middleware
 app.use(express.static(path.join(__dirname, "static")));
 app.use(express.urlencoded({extended:true}));
+app.use(session({
+  secret: sessionSecret,
+  saveUninitialized: false,
+  resave: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  }
+}));
 
-app.get("/", (req, res) => {
+const client = require("./libs/db");
+app.get("/", async (req, res) => {
+  console.log(req.session);
   return res.render("home", {
     user: {
       loggedIn: 1,
       name: "Gustavo"
     },
-    programmingLanguages: [
-      "JavaScript",
-      "Python",
-      "Java",
-      "Perl",
-      "C++",
-      "TypeScript"
-    ]
+    users: await client.user.findMany()
   });
 });
 

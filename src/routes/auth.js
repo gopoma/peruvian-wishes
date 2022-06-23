@@ -5,7 +5,10 @@ function auth(app) {
   const router = express.Router();
   app.use("/auth", router);
 
-  router.get("/login", AuthController.showLoginView);
+  router.get("/signup", AuthController.getSignUpForm);
+  router.post("/signup", AuthController.signUp);
+  router.get("/login", AuthController.getLoginForm);
+  router.post("/login", AuthController.logIn);
 }
 
 module.exports = auth;
