@@ -12,6 +12,8 @@ A BackEnd aplication inspired by Rappi.
 
 3. Se configuró el ORM de `Prisma` a través de las Variables de Entorno y su archivo de Configuración.
 
+4. Se instancia el PrismaClient como cliente y se exporta hacia los controladores.
+
 ### Curiosidades:
 
 * En el .env se puede hacer uso de la Interpolación de Variables:
