@@ -18,6 +18,8 @@ A BackEnd aplication inspired by Rappi.
 
 6. Se desarrolló la lógica para el SignUp de users.
 
+7. Se desarrolló la lógica para el Login de users, además de la persistencia de la sesión en los `locals` en la respuesta.
+
 ### Curiosidades:
 
 * En el .env se puede hacer uso de la Interpolación de Variables:

@@ -1,8 +1,8 @@
 const client = require("../libs/db");
-const { encrypt } = require("../helpers/encrypt");
+const { encrypt, compare } = require("../helpers/encrypt");
 
 class AuthController {
-  static async getSignUpForm(req, res) {
+  static getSignUpForm(req, res) {
     return res.render("signup");
   }
   static async signUp(req, res) {
@@ -39,13 +39,30 @@ class AuthController {
     }
   }
 
-  static async getLoginForm(req, res) {
-    const users = await client.user.findMany();
-    console.log(users);
+  static getLoginForm(req, res) {
     return res.render("login");
   }
   static async logIn(req, res) {
-    return res.json(req.body);
+    const { email, password } = req.body;
+    const user = await client.user.findUnique({
+      where: {
+        email
+      }
+    });
+
+    if(user && await compare(password, user.password)) {
+      delete user.password;
+      req.session.user = {
+        loggedIn: true,
+        ...user
+      };
+      return res.redirect("/");
+    }
+
+    return res.render("login", {
+      error: true,
+      message: "Invalid credentials"
+    });
   }
 }
 

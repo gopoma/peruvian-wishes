@@ -8,6 +8,8 @@ const { port, sessionSecret } = require("./config");
 
 // Importando los routes
 const auth = require("./routes/auth");
+// Importando los middlewares
+const addSessionToTemplate = require("./middleware/addSessionToTemplate");
 
 const app = express();
 
@@ -30,6 +32,7 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
 }));
+app.use(addSessionToTemplate);
 
 const client = require("./libs/db");
 app.get("/", async (req, res) => {
