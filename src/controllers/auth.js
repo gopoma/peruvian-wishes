@@ -34,6 +34,7 @@ class AuthController {
         },
       });
 
+      // When SignUp goes successfully
       req.session.user = {
         loggedIn: true,
         ...userSaved
@@ -64,8 +65,8 @@ class AuthController {
   static async logIn(req, res) {
     const { email, password } = req.body;
     const user = await client.user.findUnique({
-      where: {
-        email
+      where: { 
+        email 
       }
     });
 
@@ -79,8 +80,9 @@ class AuthController {
     }
 
     return res.render("login", {
-      error: true,
-      message: "Invalid credentials"
+      displayMessages: true,
+      success: false,
+      messages: ["Invalid credentials"]
     });
   }
 }
