@@ -1,9 +1,11 @@
-<h1>Login</h1>
-<form action="/auth/login" method="POST">
-  <input type="email" name="email" placeholder="Email...">
-  <input type="password" name="password" placeholder="Password...">
-  <input type="submit" value="Login">
-</form>
+<h1 class="p-4 text-3xl font-bold text-center">Login</h1>
+<div class="flex justify-center items-center">
+  <form class="w-8/12 flex flex-col gap-2" action="/auth/login" method="POST">
+    <input class="d-block border border-sky-300 rounded p-2" type="email" name="email" placeholder="Email...">
+    <input class="d-block border border-sky-300 rounded p-2" type="password" name="password" placeholder="Password...">
+    <input class="d-block rounded p-2 text-sky-900 bg-sky-200 hover:bg-yellow-200 transition-colors" type="submit" value="Login">
+  </form>
+</div>
 
 {{#if error}}
   <p>{{message}}</p>
