@@ -6,13 +6,15 @@ class AuthController {
     return res.render("signup");
   }
   static async signUp(req, res) {
-    const { 
-      username, 
-      email, 
-      birthday, 
-      password, 
-      passwordConfirmation 
-    } = req.body;
+    const { username, email, birthday, password, passwordConfirmation } = req.body;
+
+    if(!username || !email || !password || !passwordConfirmation) {
+      return res.render("signup", {
+        displayMessages: true,
+        success: false,
+        messages: ["Fill all the fields"]
+      });
+    }
 
     if(!password || password !== passwordConfirmation) {
       return res.render("signup");
