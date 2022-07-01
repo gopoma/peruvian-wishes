@@ -36,13 +36,7 @@ app.use(addSessionToTemplate);
 
 const client = require("./libs/db");
 app.get("/", async (req, res) => {
-  console.log(req.session);
-  console.log(req.session.user);
   return res.render("home", {
-    user: {
-      loggedIn: 1,
-      name: "Gustavo"
-    },
     users: await client.user.findMany()
   });
 });
