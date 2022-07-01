@@ -9,6 +9,7 @@ function auth(app) {
   router.post("/signup", AuthController.signUp);
   router.get("/login", AuthController.getLoginForm);
   router.post("/login", AuthController.logIn);
+  router.get("/logout", AuthController.logOut);
 }
 
 module.exports = auth;

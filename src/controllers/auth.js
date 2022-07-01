@@ -85,6 +85,11 @@ class AuthController {
       messages: ["Invalid credentials"]
     });
   }
+
+  static logOut(req, res) {
+    req.session.destroy();
+    return res.redirect("/");
+  }
 }
 
 module.exports = AuthController;
