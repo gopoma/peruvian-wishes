@@ -17,7 +17,11 @@ class AuthController {
     }
 
     if(!password || password !== passwordConfirmation) {
-      return res.render("signup");
+      return res.render("signup", {
+        displayMessages: true,
+        success: false,
+        messages: ["Passwords don't match"]
+      });
     }
 
     try {
@@ -36,8 +40,21 @@ class AuthController {
       };
       return res.redirect("/");
     } catch(error) {
-      console.log(error);
-      return res.render("signup");
+      if(error.code === "P2002") {
+        const field = error.meta.target.split("_")[1];
+        const repeatedField = field[0].toUpperCase() + field.substring(1, field.length);
+        return res.render("signup", {
+          displayMessages: true,
+          success: false,
+          messages: [`${repeatedField} already registered`]
+        });
+      }
+      // Max VARCHAR size exceeded
+      return res.render("signup", {
+        displayMessages: true,
+        success: false,
+        messages: ["A wild error has appeared"]
+      });
     }
   }
 
