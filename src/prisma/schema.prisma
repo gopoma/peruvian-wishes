@@ -17,4 +17,5 @@ model User {
   password String @db.VarChar(61)
   birthday DateTime? @db.Date
   active Boolean @default(true)
+  role String @db.VarChar(31) @default("user")
 }
