@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const { engine } = require("express-handlebars");
 const session = require("express-session");
+const { flash } = require("express-flash-message");
 
 // Importando las Variables de Entorno
 const { port, sessionSecret } = require("./config");
@@ -32,11 +33,16 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
 }));
+app.use(flash({ sessionKeyName: "flashMessage" }));
 app.use(addSessionToTemplate);
 
 const client = require("./libs/db");
 app.get("/", async (req, res) => {
+  const successMessage = (await req.consumeFlash("success"))[0];
   return res.render("home", {
+    displayMessages: successMessage,
+    success: successMessage,
+    messages: [successMessage],
     users: await client.user.findMany()
   });
 });

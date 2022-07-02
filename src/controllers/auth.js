@@ -39,6 +39,7 @@ class AuthController {
         loggedIn: true,
         ...userSaved
       };
+      await req.flash("success", "User registered successfully");
       return res.redirect("/");
     } catch(error) {
       if(error.code === "P2002") {

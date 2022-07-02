@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".message").forEach(message => {
+    document.querySelectorAll(".message__closer").forEach(message => {
         message.onclick = function() {
             message.parentNode.parentNode.removeChild(message.parentNode);
         }
