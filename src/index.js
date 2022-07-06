@@ -15,9 +15,14 @@ const addSessionToTemplate = require("./middleware/addSessionToTemplate");
 
 const app = express();
 
+// Importando los helpers
+const { parseDate } = require("./helpers/date");
 // Configurando el Template Engine
 app.engine("hbs", engine({
-  extname: "hbs"
+  extname: "hbs",
+  helpers: {
+    parseDate
+  }
 }));
 
 app.set("view engine", "hbs");
@@ -37,6 +42,11 @@ app.use(session({
 app.use(flash({ sessionKeyName: "flashMessage" }));
 app.use(addSessionToTemplate);
 
+
+// Utilizando los routes
+auth(app);
+users(app);
+
 const client = require("./libs/db");
 app.get("/", async (req, res) => {
   const successMessage = (await req.consumeFlash("success"))[0];
@@ -48,9 +58,8 @@ app.get("/", async (req, res) => {
   });
 });
 
-// Utilizando los routes
-auth(app);
-users(app);
+app.get("/not-allowed", (req, res) => res.render("not_allowed"));
+app.all("*", (req, res) => res.render("not_found"));
 
 app.listen(port, () => {
   console.log(`Listening on: http://localhost:${port}`);

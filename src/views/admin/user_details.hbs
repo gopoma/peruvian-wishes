@@ -1,0 +1,18 @@
+<h1>User details...</h1>
+
+<article>
+  <p><b>Username: </b>{{ user.username }}</p>
+  <p><b>Email: </b>{{ user.email }}</p>
+</article>
+
+<form action="/admin/users/{{ user.id }}/edit" method="POST">
+  <div>
+    <label for="active">Active:</label>
+    <input type="checkbox" name="active" {{#if user.active}} checked {{/if}}>
+  </div>
+  <div>
+    <label for="birthday">Birthday:</label>
+    <input type="date" name="birthday" value="{{ parseDate user.birthday }}">
+  </div>
+  <input type="submit" value="Edit">
+</form>
