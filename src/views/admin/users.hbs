@@ -1,0 +1,10 @@
+<h1>Users</h1>
+
+<section>
+{{#each users}}
+  <article>
+    <a href="/admin/users/{{this.id}}">{{this.username}}</a>
+  </article>
+{{/each}}
+</section>
+  

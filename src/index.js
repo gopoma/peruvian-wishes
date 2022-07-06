@@ -9,6 +9,7 @@ const { port, sessionSecret } = require("./config");
 
 // Importando los routes
 const auth = require("./routes/auth");
+const users = require("./routes/users");
 // Importando los middlewares
 const addSessionToTemplate = require("./middleware/addSessionToTemplate");
 
@@ -49,6 +50,7 @@ app.get("/", async (req, res) => {
 
 // Utilizando los routes
 auth(app);
+users(app);
 
 app.listen(port, () => {
   console.log(`Listening on: http://localhost:${port}`);
