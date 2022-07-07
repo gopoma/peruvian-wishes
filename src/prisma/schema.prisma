@@ -10,6 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  REGULAR
+  ADMIN
+}
+
 model User {
   id Int @id @unique @default(autoincrement())
   username String @unique @db.VarChar(255)
@@ -20,7 +25,26 @@ model User {
   active Boolean @default(true)
 }
 
-enum Role {
-  REGULAR
-  ADMIN
+model Food {
+  id Int @id @unique @default(autoincrement())
+  name String @db.VarChar(255)
+  price Float
+  description String
+  image String
+  categories FoodCategories[]
+}
+
+model Category {
+  id Int @id @unique @default(autoincrement())
+  name String
+  food FoodCategories[]
+}
+
+model FoodCategories {
+  foodID Int
+  food Food @relation(fields:[foodID], references:[id], onDelete:Cascade)
+  categoryID Int
+  category Category @relation(fields:[categoryID], references:[id], onDelete:Cascade)
+
+  @@id([foodID, categoryID])
 }
