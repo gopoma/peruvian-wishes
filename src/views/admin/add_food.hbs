@@ -4,6 +4,12 @@
   <input type="number" name="price" placeholder="Price..." value="{{ foodData.price }}">
   <textarea name="description" cols="30" rows="10" placeholder="Description...">{{ foodData.description }}</textarea>
   <input type="text" name="image" placeholder="Image..." value="{{ foodData.image }}">
+  <select name="categories" multiple>
+    <option value="no-category" selected>No Category</option>
+    {{#each categories}}
+      <option value="{{ this.id }}">{{ this.name }}</option>
+    {{/each}}
+  </select>
   <input type="submit" value="Add">
 </form>
 
