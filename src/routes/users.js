@@ -8,6 +8,8 @@ function users(app) {
   router.get("/", UserController.getAll);
   router.get("/:id", UserController.getOne);
   router.post("/:id/edit", UserController.editOne);
+  router.get("/:id/delete", UserController.getDeleteConfirmation);
+  router.post("/:id/delete", UserController.deleteOne);
 }
 
 module.exports = users;
