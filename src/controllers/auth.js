@@ -10,13 +10,15 @@ class AuthController {
 
     if(!username || !email || !password || !passwordConfirmation) {
       return res.render("signup", {
-        messages: [{error:true, content:"Fill all the fields"}]
+        messages: [{error:true, content:"Fill all the fields"}],
+        userData: req.body
       });
     }
 
     if(!password || password !== passwordConfirmation) {
       return res.render("signup", {
-        messages: [{error:true, content:"Passwords don't match"}]
+        messages: [{error:true, content:"Passwords don't match"}],
+        userData: req.body
       });
     }
 
@@ -48,12 +50,14 @@ class AuthController {
         const field = error.meta.target.split("_")[1];
         const repeatedField = field[0].toUpperCase() + field.substring(1, field.length);
         return res.render("signup", {
-          messages: [{error:true, content:`${repeatedField} already registered`}]
+          messages: [{error:true, content:`${repeatedField} already registered`}],
+          userData: req.body
         });
       }
       // Max VARCHAR size exceeded
       return res.render("signup", {
-        messages: [{error:true, content:"A wild error has appeared"}]
+        messages: [{error:true, content:"A wild error has appeared"}],
+        userData: req.body
       });
     }
   }

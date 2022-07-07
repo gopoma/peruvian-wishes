@@ -1,11 +1,11 @@
 <h1 class="p-4 text-3xl font-bold text-center">SignUp</h1>
 <div class="flex justify-center items-center">
   <form class="w-5/12 flex flex-col gap-2" action="/auth/signup" method="POST">
-    <input class="border border-sky-300 rounded p-2" type="text" name="username" placeholder="Enter your username">
-    <input class="border border-sky-300 rounded p-2" type="email" name="email" placeholder="Enter your email address">
+    <input class="border border-sky-300 rounded p-2" type="text" name="username" placeholder="Enter your username" value="{{ userData.username }}">
+    <input class="border border-sky-300 rounded p-2" type="email" name="email" placeholder="Enter your email address" value="{{ userData.email }}">
     <div class="flex gap-2 items-center">
       <label class="font-bold" for="birthday">Birthday: </label>
-      <input class="w-full border border-sky-300 rounded p-2" type="date" name="birthday" id="birthday">
+      <input class="w-full border border-sky-300 rounded p-2" type="date" name="birthday" id="birthday" value={{ userData.birthday }}>
     </div>
     <input class="border border-sky-300 rounded p-2" type="password" name="password" placeholder="Enter a password">
     <input class="border border-sky-300 rounded p-2" type="password" name="passwordConfirmation" placeholder="Enter password again">

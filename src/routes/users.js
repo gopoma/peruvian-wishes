@@ -1,8 +1,10 @@
 const express = require("express");
 const UserController = require("../controllers/users");
+const authValidation = require("../middleware/authValidation");
 
 function users(app) {
   const router = express.Router();
+  router.use(authValidation({requiredRole:"ADMIN"}));
   app.use("/admin/users", router);
 
   router.get("/", UserController.getAll);
