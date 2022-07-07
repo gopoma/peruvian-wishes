@@ -16,11 +16,13 @@ const addSessionToTemplate = require("./middleware/addSessionToTemplate");
 const app = express();
 
 // Importando los helpers
+const { isAdmin } = require("./helpers/auth");
 const { parseDate } = require("./helpers/date");
 // Configurando el Template Engine
 app.engine("hbs", engine({
   extname: "hbs",
   helpers: {
+    isAdmin,
     parseDate
   }
 }));
@@ -62,8 +64,12 @@ app.get("/", async (req, res) => {
   });
 });
 
-app.get("/not-allowed", (req, res) => res.render("not_allowed"));
-app.all("*", (req, res) => res.render("not_found"));
+app.get("/not-allowed", (req, res) => {
+  return res.render("not_allowed");
+});
+app.all("*", (req, res) => {
+  return res.render("not_found");
+});
 
 app.listen(port, () => {
   console.log(`Listening on: http://localhost:${port}`);
