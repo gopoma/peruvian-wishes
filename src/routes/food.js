@@ -10,6 +10,7 @@ function food(app) {
   router.get("/", FoodController.getAll);
   router.get("/addFood", FoodController.getAddForm);
   router.post("/addFood", FoodController.add);
+  router.post("/addCategory", FoodController.addCategory);
 }
 
 module.exports = food;

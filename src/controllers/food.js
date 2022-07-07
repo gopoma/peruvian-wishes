@@ -11,14 +11,21 @@ class FoodController {
     });
   }
 
-  static getAddForm(req, res) {
-    return res.render("admin/add_food");
+  static async getAddForm(req, res) {
+    const infoMessage = (await req.consumeFlash("info"))[0];
+    const errorMessage = (await req.consumeFlash("error"))[0];
+    return res.render("admin/add_food", {
+      messages: [
+        {info:true && infoMessage, content:infoMessage},
+        {error:true && errorMessage, content:errorMessage}
+      ]
+    });
   }
 
   static async add(req, res) {
     try {
       const { name, price, description, image } = req.body;
-      if(!name || !price || !description || !image) {
+      if(!name?.trim() || !price?.trim() || !description?.trim() || !image?.trim()) {
         return res.render("admin/add_food", {
           messages: [{error:true, content:"Fill all the fields"}],
           foodData: req.body
@@ -41,6 +48,32 @@ class FoodController {
         messages: [{error:true, content:"Failed to add food"}],
         foodData: req.body
       });
+    }
+  }
+
+  static async addCategory(req, res) {
+    try {
+      const { name } = req.body;
+      if(!name?.trim()) {
+        await req.flash("error", "Fill the field");
+        return res.redirect("/food/addFood");
+      }
+
+      await client.category.create({
+        data: {
+          name
+        }
+      });
+      await req.flash("info", "Category added successfully");
+      return res.redirect("/food/addFood");
+    } catch(error) {
+      if(error.code === "P2002") {
+        await req.flash("error", "Category already added");
+        return res.redirect("/food/addFood");
+      }
+      
+      await req.flash("error", "Failed to add category");
+      return res.redirect("/food/addFood");
     }
   }
 }

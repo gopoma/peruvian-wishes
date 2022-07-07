@@ -38,7 +38,7 @@ model Food {
 
 model Category {
   id Int @id @unique @default(autoincrement())
-  name String @db.VarChar(255)
+  name String @unique @db.VarChar(255)
   food FoodCategories[]
   createdAt DateTime @default(now())
 }
