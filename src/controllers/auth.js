@@ -22,6 +22,12 @@ class AuthController {
 
     try {
       const userSaved = await client.user.create({
+        select: {
+          id:true,
+          username:true,
+          email:true,
+          role:true
+        },
         data: {
           username,
           email,
