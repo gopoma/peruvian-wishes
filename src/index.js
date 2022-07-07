@@ -50,7 +50,6 @@ users(app);
 const client = require("./libs/db");
 app.get("/", async (req, res) => {
   const infoMessage = (await req.consumeFlash("info"))[0];
-  console.log(infoMessage);
   return res.render("home", {
     messages: [
       {

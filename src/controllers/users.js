@@ -3,8 +3,19 @@ const client = require("../libs/db");
 class UserController {
   static async getAll(req, res) {
     const users = await client.user.findMany();
-    
+    const infoMessage = (await req.consumeFlash("info"))[0];
+    const errorMessage = (await req.consumeFlash("error"))[0];
     return res.render("admin/users", {
+      messages: [
+        {
+          info: true && infoMessage,
+          content: infoMessage
+        },
+        {
+          error: true && errorMessage,
+          content: errorMessage
+        }
+      ],
       users
     });
   }
@@ -39,14 +50,11 @@ class UserController {
         }
       });
 
-      await req.flash("success", "User edited successfully");
+      await req.flash("info", "User edited successfully");
       return res.redirect("/admin/users");
     } catch(error) {
-      return res.render("admin/user_details", {
-        displayMessages: true,
-        success: false,
-        messages: ["A wild error has appeared"]
-      });
+      await req.flash("error", "A wild error has appeared");
+      return res.redirect("/admin/users");
     }
   }
 }
