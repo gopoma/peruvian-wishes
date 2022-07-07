@@ -10,12 +10,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  REGULAR
+  ADMIN
+}
+
 model User {
   id Int @id @unique @default(autoincrement())
   username String @unique @db.VarChar(255)
   email String @unique @db.VarChar(255)
   password String @db.VarChar(61)
   birthday DateTime? @db.Date
+  role Role @default(REGULAR)
   active Boolean @default(true)
-  role String @db.VarChar(31) @default("user")
 }
