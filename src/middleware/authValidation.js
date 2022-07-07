@@ -1,7 +1,7 @@
 function authValidation(config) {
   const {requiredRole, excent} = config;
   return function(req, res, next) {
-    if(Array.isArray(excent) && excent.includes(req.originalUrl)) {
+    if(Array.isArray(excent) && excent.includes(req.path)) {
       return next();
     }
     

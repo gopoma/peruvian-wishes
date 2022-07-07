@@ -10,11 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  REGULAR
-  ADMIN
-}
-
 model User {
   id Int @id @unique @default(autoincrement())
   username String @unique @db.VarChar(255)
@@ -23,6 +18,12 @@ model User {
   birthday DateTime? @db.Date
   role Role @default(REGULAR)
   active Boolean @default(true)
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  REGULAR
+  ADMIN
 }
 
 model Food {
@@ -32,19 +33,21 @@ model Food {
   description String
   image String
   categories FoodCategories[]
+  createdAt DateTime @default(now())
 }
 
 model Category {
   id Int @id @unique @default(autoincrement())
   name String
   food FoodCategories[]
+  createdAt DateTime @default(now())
 }
 
 model FoodCategories {
-  foodID Int
   food Food @relation(fields:[foodID], references:[id], onDelete:Cascade)
-  categoryID Int
+  foodID Int
   category Category @relation(fields:[categoryID], references:[id], onDelete:Cascade)
+  categoryID Int
 
   @@id([foodID, categoryID])
 }

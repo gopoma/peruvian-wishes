@@ -10,6 +10,7 @@ const { port, sessionSecret } = require("./config");
 // Importando los routes
 const auth = require("./routes/auth");
 const users = require("./routes/users");
+const food = require("./routes/food");
 // Importando los middlewares
 const addSessionToTemplate = require("./middleware/addSessionToTemplate");
 
@@ -48,6 +49,7 @@ app.use(addSessionToTemplate);
 // Utilizando los routes
 auth(app);
 users(app);
+food(app);
 
 const client = require("./libs/db");
 app.get("/", async (req, res) => {

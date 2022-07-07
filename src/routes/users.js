@@ -4,8 +4,8 @@ const authValidation = require("../middleware/authValidation");
 
 function users(app) {
   const router = express.Router();
-  router.use(authValidation({requiredRole:"ADMIN"}));
   app.use("/admin/users", router);
+  router.use(authValidation({requiredRole:"ADMIN"}));
 
   router.get("/", UserController.getAll);
   router.get("/:id", UserController.getOne);
