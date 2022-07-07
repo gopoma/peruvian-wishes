@@ -54,7 +54,7 @@ food(app);
 const client = require("./libs/db");
 app.get("/", async (req, res) => {
   const infoMessage = (await req.consumeFlash("info"))[0];
-  console.log(req.session);
+
   return res.render("home", {
     messages: [
       {

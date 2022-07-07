@@ -8,6 +8,8 @@ function food(app) {
   router.use(authValidation({requiredRole:"ADMIN", excent:["/"]}));
 
   router.get("/", FoodController.getAll);
+  router.get("/addFood", FoodController.getAddForm);
+  router.post("/addFood", FoodController.add);
 }
 
 module.exports = food;

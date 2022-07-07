@@ -30,15 +30,15 @@ model Food {
   id Int @id @unique @default(autoincrement())
   name String @db.VarChar(255)
   price Float
-  description String
-  image String
+  description String @db.VarChar(1023)
+  image String @db.VarChar(255)
   categories FoodCategories[]
   createdAt DateTime @default(now())
 }
 
 model Category {
   id Int @id @unique @default(autoincrement())
-  name String
+  name String @db.VarChar(255)
   food FoodCategories[]
   createdAt DateTime @default(now())
 }
