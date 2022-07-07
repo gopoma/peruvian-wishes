@@ -10,17 +10,13 @@ class AuthController {
 
     if(!username || !email || !password || !passwordConfirmation) {
       return res.render("signup", {
-        displayMessages: true,
-        success: false,
-        messages: ["Fill all the fields"]
+        messages: [{error:true, content:"Fill all the fields"}]
       });
     }
 
     if(!password || password !== passwordConfirmation) {
       return res.render("signup", {
-        displayMessages: true,
-        success: false,
-        messages: ["Passwords don't match"]
+        messages: [{error:true, content:"Passwords don't match"}]
       });
     }
 
@@ -39,23 +35,19 @@ class AuthController {
         loggedIn: true,
         ...userSaved
       };
-      await req.flash("success", "User registered successfully");
+      await req.flash("info", "User registered successfully");
       return res.redirect("/");
     } catch(error) {
       if(error.code === "P2002") {
         const field = error.meta.target.split("_")[1];
         const repeatedField = field[0].toUpperCase() + field.substring(1, field.length);
         return res.render("signup", {
-          displayMessages: true,
-          success: false,
-          messages: [`${repeatedField} already registered`]
+          messages: [{error:true, content:`${repeatedField} already registered`}]
         });
       }
       // Max VARCHAR size exceeded
       return res.render("signup", {
-        displayMessages: true,
-        success: false,
-        messages: ["A wild error has appeared"]
+        messages: [{error:true, content:"A wild error has appeared"}]
       });
     }
   }
@@ -81,9 +73,7 @@ class AuthController {
     }
 
     return res.render("login", {
-      displayMessages: true,
-      success: false,
-      messages: ["Invalid credentials"]
+      messages: [{error:true, content:"Invalid credentials"}]
     });
   }
 

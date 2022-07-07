@@ -1,17 +1,15 @@
-{{#if displayMessages}}
 <div class="absolute top-16 right-0">
-    {{#each messages}}
-        {{#if ../success}}
-            <p class="border border-blue-500 rounded px-4 py-3 flex gap-4 justify-between items-center text-blue-700 bg-blue-100">
-                <span>{{this}}</span>
-                <span class="message__closer cursor-pointer hover:text-blue-900">✘</span>
-            </p>
-        {{else}}
-            <p class="border border-red-400 rounded px-4 py-3 flex gap-4 justify-between items-center text-red-700 bg-red-100">
-                <span>{{this}}</span>
-                <span class="message__closer cursor-pointer hover:text-red-900">✘</span>
-            </p>
-        {{/if}}
-    {{/each}}
+  {{#each messages}}
+    {{#if this.info}}
+      <p class="border border-blue-500 rounded px-4 py-3 flex gap-4 justify-between items-center text-blue-700 bg-blue-100">
+        <span>{{this.content}}</span>
+        <span class="message__closer cursor-pointer hover:text-blue-900">✘</span>
+      </p>
+    {{else if this.error}}
+      <p class="border border-red-400 rounded px-4 py-3 flex gap-4 justify-between items-center text-red-700 bg-red-100">
+        <span>{{this.content}}</span>
+        <span class="message__closer cursor-pointer hover:text-red-900">✘</span>
+      </p>
+    {{/if}}
+  {{/each}}
 </div>
-{{/if}}

@@ -49,11 +49,15 @@ users(app);
 
 const client = require("./libs/db");
 app.get("/", async (req, res) => {
-  const successMessage = (await req.consumeFlash("success"))[0];
+  const infoMessage = (await req.consumeFlash("info"))[0];
+  console.log(infoMessage);
   return res.render("home", {
-    displayMessages: successMessage,
-    success: successMessage,
-    messages: [successMessage],
+    messages: [
+      {
+        info: true && infoMessage, 
+        content: infoMessage
+      }
+    ],
     users: await client.user.findMany()
   });
 });
