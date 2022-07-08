@@ -12,7 +12,7 @@ function food(app) {
   router.post("/addFood", FoodController.add);
   router.post("/addCategory", FoodController.addCategory);
   router.get("/:idFood/edit", FoodController.getEditForm);
-  router.post("/:idFood/delete", FoodController.edit);
+  router.post("/:idFood/edit", FoodController.edit);
   router.get("/:idFood/delete", FoodController.getDeleteConfirmation);
   router.post("/:idFood/delete", FoodController.delete);
 }

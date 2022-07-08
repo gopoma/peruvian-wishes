@@ -1,1 +1,27 @@
 <h1>Edit Food</h1>
+
+<form action="/food/{{ food.id }}/edit" method="POST">
+  <input type="text" name="name" placeohlder="Name..." value="{{ food.name }}">
+  <input type="number" name="price" placeholder="Price..." value="{{ food.price }}">
+  <textarea name="description" cols="30" rows="10" placeholder="Description...">{{ food.description }}</textarea>
+  <input type="text" name="image" placeholder="Image..." value="{{ food.image }}">
+  <select name="categories" multiple>
+    <option value="no-category" {{#if (isEmpty food.categories)}} selected {{/if}}>No category</option>
+    {{#each categories}}
+      <option value="{{ this.id }}" {{#if (contains ../food.categories this.id)}} selected {{/if}}>{{ this.name }}</option>
+    {{/each}}
+  </select>
+  <input type="submit" value="Edit">
+</form>
+
+<ul>
+{{#each food.categories}}
+  <li>{{ this.categoryID }}</li>
+{{/each}}
+</ul>
+
+<h2>Add Category</h2>
+<form action="/food/addCategory?next=/food/{{ food.id }}/edit" method="POST">
+  <input type="text" name="name" placeholder="Category...">
+  <input type="submit" value="Add">
+</form>

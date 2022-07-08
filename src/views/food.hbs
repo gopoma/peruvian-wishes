@@ -2,9 +2,9 @@
 {{#if (isAdmin user.role)}}
   <a class="inline-block p-2 text-lg font-bold text-white bg-red-700" href="/food/addFood">Add Food</a>
 {{/if}}
-<section>
+<section class="flex flex-col gap-2">
 {{#each food}}
-  <article class="text-white bg-emerald-900">
+  <article class="border-4 border-black p-4 bg-yellow-200">
     {{#if (isAdmin ../user.role)}}
       <a class="inline-block p-2 text-lg font-bold text-white bg-red-700" href="/food/{{ this.id }}/edit">Edit</a>
       <a class="inline-block p-2 text-lg font-bold text-white bg-red-700" href="/food/{{ this.id }}/delete">Delete</a>

@@ -44,14 +44,14 @@ class FoodController {
 
   static async add(req, res) {
     try {
-      const { name, price, description, image } = req.body;
+      const {name, price, description, image} = req.body;
 
       if(!name?.trim() || !price?.trim() || !description?.trim() || !image?.trim()) {
         await req.flash("error", "Fill all the fields");
         return res.redirect("/food/addFood");
       }
 
-      let { categories } = req.body;
+      let {categories} = req.body;
       if(!Array.isArray(categories)) {
         categories = [categories];
       }
@@ -76,7 +76,6 @@ class FoodController {
       await req.flash("info", "Food added successfully");
       return res.redirect("/food");
     } catch(error) {
-      console.log(error);
       await req.flash("error", "Failed to add food");
       return res.redirect("/food/addFood");
     }
@@ -84,7 +83,7 @@ class FoodController {
 
   static async addCategory(req, res) {
     try {
-      const { name } = req.body;
+      const {name} = req.body;
 
       if(!name?.trim()) {
         await req.flash("error", "Fill the field");
@@ -97,7 +96,7 @@ class FoodController {
         }
       });
       await req.flash("info", "Category added successfully");
-      return res.redirect("/food/addFood");
+      return res.redirect(req.query.next);
     } catch(error) {
       if(error.code === "P2002") {
         await req.flash("error", "Category already added");
@@ -111,14 +110,22 @@ class FoodController {
 
   static async getEditForm(req, res) {
     try {
+      const infoMessage = (await req.consumeFlash("info"))[0];
       const idFood = parseInt(req.params.idFood);
       const food = await client.food.findUnique({
         where: {
           id: idFood
+        },
+        include: {
+          categories: true
         }
       });
+      food.categories = food.categories.map(({categoryID}) => categoryID);
+      const categories = await client.category.findMany();
       return res.render("admin/edit_food", {
-        food
+        messages: [{info:true && infoMessage, content:infoMessage}],
+        food,
+        categories
       });
     } catch(error) {
       await req.flash("error", "Failed to lookup at that food");
@@ -127,7 +134,52 @@ class FoodController {
   }
 
   static async edit(req, res) {
-    return res.end("Editing... " + req.params.idFood);
+    try {
+      const idFood = parseInt(req.params.idFood);
+      const {name, price, description, image} = req.body;
+
+      if(!name || !price || !description || !image) {
+        await req.flash("error", "Fill all the fields");
+        return res.redirect(`/food/${idFood}/edit`);
+      }
+
+      await client.foodCategories.deleteMany({
+        where: {
+          foodID: idFood
+        }
+      });
+      let {categories} = req.body;
+      if(!Array.isArray(categories)) {
+        categories = [categories];
+      }
+      categories = categories.filter(category => typeof(category) === "string");
+
+      const noCategory = categories.length === 0 || categories.includes("no-category");
+      const data = {
+        name,
+        price: parseFloat(price),
+        description,
+        image,
+      };
+      if(!noCategory) {
+        const categoriesIDs = categories.map(categoryID => ({categoryID:parseInt(categoryID)}));
+        data.categories = {
+          create: categoriesIDs
+        };
+      }
+
+      await client.food.update({
+        where: {
+          id: idFood
+        },
+        data
+      });
+      await req.flash("info", "Food edited successfully");
+      return res.redirect("/food");
+    } catch(error) {
+      await req.flash("error", "Failed to edit food");
+      return res.redirect("/food");
+    }
   }
 
   static async getDeleteConfirmation(req, res) {
