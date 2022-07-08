@@ -23,6 +23,7 @@ class FoodController {
     const infoMessage = (await req.consumeFlash("info"))[0];
     const errorMessage = (await req.consumeFlash("error"))[0];
     const categories = await client.category.findMany();
+
     return res.render("admin/add_food", {
       messages: [
         {info:true && infoMessage, content:infoMessage},
@@ -35,17 +36,18 @@ class FoodController {
   static async add(req, res) {
     try {
       const { name, price, description, image } = req.body;
-      let { categories } = req.body;
-      if(!Array.isArray(categories)) {
-        categories = [categories];
-      }
 
       if(!name?.trim() || !price?.trim() || !description?.trim() || !image?.trim()) {
         await req.flash("error", "Fill all the fields");
         return res.redirect("/food/addFood");
       }
 
-      const noCategory = categories.length === 0 || categories.includes("no-category");
+      let { categories } = req.body;
+      if(!Array.isArray(categories)) {
+        categories = [categories];
+      }
+      categories = categories.filter(Boolean);
+      const noCategory = categories.includes("no-category");
       const data = {
         name,
         price: parseFloat(price),
@@ -65,6 +67,7 @@ class FoodController {
       await req.flash("info", "Food added successfully");
       return res.redirect("/food");
     } catch(error) {
+      console.log(error);
       await req.flash("error", "Failed to add food");
       return res.redirect("/food/addFood");
     }
@@ -73,6 +76,7 @@ class FoodController {
   static async addCategory(req, res) {
     try {
       const { name } = req.body;
+
       if(!name?.trim()) {
         await req.flash("error", "Fill the field");
         return res.redirect("/food/addFood");
