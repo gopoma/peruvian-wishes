@@ -46,7 +46,7 @@ class FoodController {
       if(!Array.isArray(categories)) {
         categories = [categories];
       }
-      categories = categories.filter(Boolean);
+      categories = categories.filter(category => typeof(category) === "string");
       const noCategory = categories.includes("no-category");
       const data = {
         name,
