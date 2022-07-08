@@ -109,6 +109,27 @@ class FoodController {
     }
   }
 
+  static async getEditForm(req, res) {
+    try {
+      const idFood = parseInt(req.params.idFood);
+      const food = await client.food.findUnique({
+        where: {
+          id: idFood
+        }
+      });
+      return res.render("admin/edit_food", {
+        food
+      });
+    } catch(error) {
+      await req.flash("error", "Failed to lookup at that food");
+      return res.redirect("/food");
+    }
+  }
+
+  static async edit(req, res) {
+    return res.end("Editing... " + req.params.idFood);
+  }
+
   static async getDeleteConfirmation(req, res) {
     try {
       const idFood = parseInt(req.params.idFood);
