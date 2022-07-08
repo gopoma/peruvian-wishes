@@ -1,5 +1,5 @@
 <h1>Borrando Usuario</h1>
-<h3>{{user.username}}</h3>
+<h3>{{ user.username }}</h3>
 <p>Confirme que desea borrar a este usuario</p>
 <form action="/admin/users/{{ user.id }}/delete" method="POST">
   <input class="p-2 text-white bg-yellow-600 cursor-pointer" type="submit" value="Confirmar">

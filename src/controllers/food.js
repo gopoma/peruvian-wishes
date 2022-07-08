@@ -3,18 +3,27 @@ const client = require("../libs/db");
 class FoodController {
   static async getAll(req, res) {
     const infoMessage = (await req.consumeFlash("info"))[0];
+    const errorMessage = (await req.consumeFlash("error"))[0];
     const food = await client.food.findMany({
       include: {
         categories: {
           include: {
-            category: true
+            category:true
           }
         }
-      }
+      },
+      orderBy: [
+        {
+          id:"desc"
+        }
+      ]
     });
 
     return res.render("food", {
-      messages:[{info:true && infoMessage, content:infoMessage}],
+      messages:[
+        {info:true && infoMessage, content:infoMessage},
+        {error:true && errorMessage, content:errorMessage}
+      ],
       food
     });
   }
@@ -97,6 +106,41 @@ class FoodController {
 
       await req.flash("error", "Failed to add category");
       return res.redirect("/food/addFood");
+    }
+  }
+
+  static async getDeleteConfirmation(req, res) {
+    try {
+      const idFood = parseInt(req.params.idFood);
+      const food = await client.food.findUnique({
+        where: {
+          id: idFood
+        }
+      });
+
+      return res.render("admin/food_confirm_delete", {
+        food
+      });
+    } catch(error) {
+      await req.flash("error", "Failed to lookup at that food");
+      return res.redirect("/food");
+    }
+  }
+
+  static async delete(req, res) {
+    try {
+      const idFood = parseInt(req.params.idFood);
+      
+      await client.food.delete({
+        where: {
+          id: idFood
+        }
+      });
+      await req.flash("info", "Food deleted successfully");
+      return res.redirect("/food");
+    } catch(error) {
+      await req.flash("error", "Failed to delete food");
+      return res.redirect("/food");
     }
   }
 }
