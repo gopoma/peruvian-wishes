@@ -17,8 +17,23 @@ model User {
   password String @db.VarChar(61)
   birthday DateTime? @db.Date
   role Role @default(REGULAR)
+  address Address?
+  activeOrder Int?
+  orders Order[]
   active Boolean @default(true)
   createdAt DateTime @default(now())
+}
+
+model Address {
+  id Int @id @unique @default(autoincrement())
+  country String @db.VarChar(255)
+  state String @db.VarChar(255)
+  city String @db.VarChar(255)
+  street String @db.VarChar(255)
+  number Int
+  zipCode Int
+  user User @relation(fields:[userID], references:[id], onDelete:Cascade)
+  userID Int @unique
 }
 
 enum Role {
@@ -33,6 +48,7 @@ model Food {
   description String @db.VarChar(1023)
   image String @db.VarChar(255)
   categories FoodCategories[]
+  orders FoodOrder[]
   createdAt DateTime @default(now())
 }
 
@@ -50,4 +66,23 @@ model FoodCategories {
   categoryID Int
 
   @@id([foodID, categoryID])
+}
+
+model Order {
+  id Int @id @unique @default(autoincrement())
+  completed Boolean @default(false)
+  user User @relation(fields:[userID], references:[id], onDelete:Cascade)
+  userID Int
+  food FoodOrder[]
+  createdAt DateTime @default(now())
+}
+
+model FoodOrder {
+  food Food @relation(fields:[foodID], references:[id], onDelete:Cascade)
+  foodID Int
+  order Order @relation(fields:[orderID], references:[id], onDelete:Cascade)
+  orderID Int
+  createdAt DateTime @default(now())
+
+  @@id([foodID, orderID])
 }
