@@ -4,6 +4,7 @@ class OrderController {
   static async getCurrentOrder(req, res) {
     try {
       const infoMessage = (await req.consumeFlash("info"))[0];
+      const errorMessage = (await req.consumeFlash("error"))[0];
       const {activeOrder} = req.session.user;
 
       const order = await client.order.findUnique({
@@ -24,7 +25,10 @@ class OrderController {
         return result + item.amount * item.food.price;
       }, 0);
       return res.render("current_order", {
-        messages: [{info:true && infoMessage, content:infoMessage}],
+        messages: [
+          {info:true && infoMessage, content:infoMessage},
+          {error:true && errorMessage, content:errorMessage}
+        ],
         items: order.food,
         total
       });
@@ -97,7 +101,25 @@ class OrderController {
   }
   
   static async deleteFood(req, res) {
-    return res.json({message:"deleteFood"});
+    try {
+      const {activeOrder} = req.session.user;
+      const idFood = parseInt(req.params.idFood);
+
+      await client.foodOrder.delete({
+        where: {
+          foodID_orderID: {
+            orderID: activeOrder,
+            foodID: idFood
+          }
+        }
+      });
+      await req.flash("info", "Food deleted from current order successfully");
+      return res.redirect("/orders");
+    } catch(error) {
+      console.log(error);
+      await req.flash("error", "Failed to delete that food from current order");
+      return res.redirect("/orders");
+    }
   }
 }
 
