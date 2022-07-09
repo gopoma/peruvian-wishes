@@ -1,4 +1,4 @@
-// const client = require("../libs/db");
+const client = require("../libs/db");
 
 class OrderController {
   static async getActualOrder(req, res) {
@@ -14,7 +14,34 @@ class OrderController {
   }
 
   static async addFood(req, res) {
-    return res.json({message:"addFood"});
+    try {
+      const {activeOrder} = req.session.user;
+      const idFood = parseInt(req.params.idFood);
+
+      await client.order.update({
+        where: {
+          id: activeOrder
+        },
+        data: {
+          food: {
+            create: {
+              food: {
+                connect: {
+                  id: idFood
+                }
+              }
+            }
+          }
+        }
+      });
+
+      await req.flash("info", "Food added successfully");
+      return res.redirect("/food");
+    } catch(error) {
+      console.log(error);
+      await req.flash("error", "Failed to add food");
+      return res.redirect("/food");
+    }
   }
   
   static async deleteFood(req, res) {

@@ -78,6 +78,7 @@ model Order {
 }
 
 model FoodOrder {
+  amount Int
   food Food @relation(fields:[foodID], references:[id], onDelete:Cascade)
   foodID Int
   order Order @relation(fields:[orderID], references:[id], onDelete:Cascade)

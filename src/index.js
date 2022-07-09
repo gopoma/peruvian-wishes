@@ -18,7 +18,7 @@ const addSessionToTemplate = require("./middleware/addSessionToTemplate");
 const app = express();
 
 // Importando los helpers
-const { isAdmin } = require("./helpers/auth");
+const { isAdmin, isRegular } = require("./helpers/auth");
 const { parseDate } = require("./helpers/date");
 const { contains, isEmpty } = require("./helpers/arrays");
 // Configurando el Template Engine
@@ -26,6 +26,7 @@ app.engine("hbs", engine({
   extname: "hbs",
   helpers: {
     isAdmin,
+    isRegular,
     parseDate,
     contains,
     isEmpty

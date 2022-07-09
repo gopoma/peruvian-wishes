@@ -9,6 +9,11 @@
       <a class="inline-block p-2 text-lg font-bold text-white bg-red-700" href="/food/{{ this.id }}/edit">Edit</a>
       <a class="inline-block p-2 text-lg font-bold text-white bg-red-700" href="/food/{{ this.id }}/delete">Delete</a>
     {{/if}}
+    {{#if (isRegular ../user.role)}}
+      <form action="/orders/{{ this.id }}/add" method="POST">
+        <input class="p-2 text-lg text-white font-bold bg-slate-700 cursor-pointer" type="submit" value="Add">
+      </form>
+    {{/if}}
     <h3 class="text-2xl font-bold">{{ this.name }}</h3>
     <p>{{ this.price }}</p>
     {{#if this.categories}}
