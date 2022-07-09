@@ -18,22 +18,44 @@ class OrderController {
       const {activeOrder} = req.session.user;
       const idFood = parseInt(req.params.idFood);
 
-      await client.order.update({
+      const item = await client.foodOrder.findUnique({
         where: {
-          id: activeOrder
-        },
-        data: {
-          food: {
-            create: {
-              food: {
-                connect: {
-                  id: idFood
-                }
-              }
-            }
+          foodID_orderID: {
+            orderID: activeOrder,
+            foodID: idFood
           }
-        }
+        },
       });
+
+      if(item) {
+        await client.foodOrder.update({
+          where: {
+            foodID_orderID: {
+              orderID: activeOrder,
+              foodID: idFood
+            }
+          },
+          data: {
+            amount: item.amount + 1
+          }
+        });
+      } else {
+        await client.foodOrder.create({
+          data: {
+            order: {
+              connect: {
+                id: activeOrder
+              }
+            },
+            food: {
+              connect: {
+                id: idFood
+              }
+            },
+            amount: 1
+          }
+        });
+      }
 
       await req.flash("info", "Food added successfully");
       return res.redirect("/food");
