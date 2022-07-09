@@ -40,7 +40,43 @@ class OrderController {
   }
 
   static async makeOrderComplete(req, res) {
-    return res.json({message:"makeOrderComplete"});
+    try {
+      const {activeOrder, id} = req.session.user;
+
+      await client.order.update({
+        where: {
+          id: activeOrder
+        },
+        data: {
+          completed: true
+        }
+      });
+      
+      const newOrder = await client.order.create({
+        data: {
+          completed: false,
+          user: {
+            connect: {
+              id
+            }
+          }
+        }
+      });
+      await client.user.update({
+        data: {
+          activeOrder: newOrder.id
+        },
+        where: {
+          id
+        }
+      });
+      req.session.user.activeOrder = newOrder.id;
+      await req.flash("info", "Current order completed successfully");
+      return res.redirect("/orders/completed");
+    } catch(error) {
+      await req.flash("error", "Failed to complete current order");
+      return res.redirect("/orders");
+    }
   }
 
   static async getCompletedOrders(req, res) {

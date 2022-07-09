@@ -1,4 +1,7 @@
 <h1>Current Order</h1>
+<form action="/orders/complete" method="POST">
+  <input class="p-2 text-white font-bold bg-blue-900 cursor-pointer" type="submit" value="Complete">
+</form>
 <p><b>Total: </b>${{ total }}</p>
 <section class="flex flex-col gap-2">
 {{#each items}}
