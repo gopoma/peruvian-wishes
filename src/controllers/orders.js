@@ -51,7 +51,7 @@ class OrderController {
           completed: true
         }
       });
-      
+
       const newOrder = await client.order.create({
         data: {
           completed: false,
@@ -80,7 +80,27 @@ class OrderController {
   }
 
   static async getCompletedOrders(req, res) {
-    return res.json({message:"getCompletedOrders"});
+    const infoMessage = (await req.consumeFlash("info"))[0];
+    const {id} = req.session.user;
+
+    const orders = await client.order.findMany({
+      where: {
+        userID: id,
+        completed: true
+      },
+      include: {
+        food: {
+          include: {
+            food: true
+          }
+        }
+      }
+    });
+    console.log(orders);
+    return res.render("completed_orders", {
+      messages: [{info:true && infoMessage, content:infoMessage}],
+      orders
+    });
   }
 
   static async addFood(req, res) {
