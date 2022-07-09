@@ -1,0 +1,12 @@
+<h1>Current Order</h1>
+<p><b>Total: </b>${{ total }}</p>
+<section class="flex flex-col gap-2">
+{{#each items}}
+  <article class="border-4 border-black p-2 bg-green-400">
+    <p><b>Amount: </b>{{ this.amount }}</p>
+    <p><b>Food Name: </b>{{ this.food.name }}</p>
+    <p><b>Single Price: </b>${{ this.food.price }}</p>
+    <p><b>Partial Total: </b>${{ mul this.amount this.food.price }}</p>
+  </article>
+{{/each}}
+</section>

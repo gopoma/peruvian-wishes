@@ -21,6 +21,7 @@ const app = express();
 const { isAdmin, isRegular } = require("./helpers/auth");
 const { parseDate } = require("./helpers/date");
 const { contains, isEmpty } = require("./helpers/arrays");
+const { mul } = require("./helpers/math");
 // Configurando el Template Engine
 app.engine("hbs", engine({
   extname: "hbs",
@@ -29,7 +30,8 @@ app.engine("hbs", engine({
     isRegular,
     parseDate,
     contains,
-    isEmpty
+    isEmpty,
+    mul
   }
 }));
 

@@ -1,8 +1,38 @@
 const client = require("../libs/db");
 
 class OrderController {
-  static async getActualOrder(req, res) {
-    return res.json({message:"getActualOrder"});
+  static async getCurrentOrder(req, res) {
+    try {
+      const infoMessage = (await req.consumeFlash("info"))[0];
+      const {activeOrder} = req.session.user;
+
+      const order = await client.order.findUnique({
+        where: {
+          id: activeOrder
+        },
+        include: {
+          food: {
+            include: {
+              food: true
+            }
+          }
+        }
+      });
+
+      const items = order.food;
+      const total = items.reduce((result, item) => {
+        return result + item.amount * item.food.price;
+      }, 0);
+      return res.render("current_order", {
+        messages: [{info:true && infoMessage, content:infoMessage}],
+        items: order.food,
+        total
+      });
+    } catch(error) {
+      console.log(error);
+      await req.flash("error", "A wild error has appeared");
+      return res.redirect("/");
+    }
   }
 
   static async makeOrderComplete(req, res) {
@@ -58,7 +88,7 @@ class OrderController {
       }
 
       await req.flash("info", "Food added successfully");
-      return res.redirect("/food");
+      return res.redirect("/orders");
     } catch(error) {
       console.log(error);
       await req.flash("error", "Failed to add food");

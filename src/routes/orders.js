@@ -7,7 +7,7 @@ function orders(app) {
   app.use("/orders", router);
   router.use(authValidation({requiredRole:"REGULAR"}));
 
-  router.get("/", OrderController.getActualOrder);
+  router.get("/", OrderController.getCurrentOrder);
   router.post("/complete", OrderController.makeOrderComplete);
   router.get("/completed", OrderController.getCompletedOrders);
   router.post("/:idFood/add", OrderController.addFood);

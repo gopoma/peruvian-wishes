@@ -10,6 +10,9 @@
         {{#if (isAdmin user.role)}}
           <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/admin/users">Users</a>
         {{/if}}
+        {{#if (isRegular user.role)}}
+          <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/orders">Current Order</a>
+        {{/if}}
         <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/food">Food</a>
         {{#if user.loggedIn}}
           <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="#">{{ user.username }}</a>
