@@ -7,12 +7,12 @@
       </a>
     </div>
     <div>
+        {{#if (isAdmin user.role)}}
+          <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/admin/users">Users</a>
+        {{/if}}
+        <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/food">Food</a>
         {{#if user.loggedIn}}
           <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="#">{{ user.username }}</a>
-          {{#if (isAdmin user.role)}}
-            <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/admin/users">Users</a>
-          {{/if}}
-          <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/food">Food</a>
           <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/auth/logout">Logout</a>
         {{else}}
           <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/auth/login">Login</a>

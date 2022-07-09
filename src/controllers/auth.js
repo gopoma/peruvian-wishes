@@ -6,42 +6,54 @@ class AuthController {
     return res.render("signup");
   }
   static async signUp(req, res) {
-    const { username, email, birthday, password, passwordConfirmation } = req.body;
-
-    if(!username || !email || !password || !passwordConfirmation) {
-      return res.render("signup", {
-        messages: [{error:true, content:"Fill all the fields"}],
-        userData: req.body
-      });
-    }
-
-    if(!password || password !== passwordConfirmation) {
-      return res.render("signup", {
-        messages: [{error:true, content:"Passwords don't match"}],
-        userData: req.body
-      });
-    }
-
     try {
+      const { username, email, birthday, password, passwordConfirmation } = req.body;
+  
+      if(!username || !email || !password || !passwordConfirmation) {
+        return res.render("signup", {
+          messages: [{error:true, content:"Fill all the fields"}],
+          userData: req.body
+        });
+      }
+  
+      if(!password || password !== passwordConfirmation) {
+        return res.render("signup", {
+          messages: [{error:true, content:"Passwords don't match"}],
+          userData: req.body
+        });
+      }
+
       const userSaved = await client.user.create({
-        select: {
-          id:true,
-          username:true,
-          email:true,
-          role:true
-        },
         data: {
           username,
           email,
           birthday: new Date(birthday),
-          password: await encrypt(password)
+          password: await encrypt(password),
+          orders: {
+            create: {
+              completed: false
+            }
+          },
         },
+        include: {
+          orders: true
+        }
+      });
+
+      const userWithOrder = await client.user.update({
+        data: {
+          activeOrder: userSaved.orders[0].id
+        },
+        where: {
+          id: userSaved.id
+        }
       });
 
       // When SignUp goes successfully
+      delete userWithOrder.password;
       req.session.user = {
         loggedIn: true,
-        ...userSaved
+        ...userWithOrder
       };
       await req.flash("info", "User registered successfully");
       return res.redirect("/");
