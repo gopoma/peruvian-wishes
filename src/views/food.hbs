@@ -1,9 +1,13 @@
-<h1 class="text-4xl font-bold text-center">Food</h1>
+<header class="p-4 flex gap-2 justify-center items-center">
+  <h1 class="text-4xl font-bold text-center">
+    Restaurant's Food Card
+  </h1>
+  <!-- Add Food -->
+  {{#if (isAdmin user.role)}}
+    <a class="inline-block h-max rounded-md px-3 py-2 text-md font-bold text-white bg-blue-700 hover:bg-blue-800 transition-colors" href="/food/addFood">Add Food</a>
+  {{/if}}
+</header>
 
-<!-- Add Food -->
-{{#if (isAdmin user.role)}}
-  <a class="inline-block p-2 text-lg font-bold text-white bg-red-700" href="/food/addFood">Add Food</a>
-{{/if}}
 
 <!-- FoodSection -->
 <section class="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
