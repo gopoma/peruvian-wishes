@@ -1,20 +1,22 @@
-<h1>Add Food</h1>
-<form action="/food/addFood" method="POST">
-  <input type="text" name="name" placeholder="Name..." value="{{ foodData.name }}">
-  <input type="number" name="price" placeholder="Price..." value="{{ foodData.price }}">
-  <textarea name="description" cols="30" rows="10" placeholder="Description...">{{ foodData.description }}</textarea>
-  <input type="text" name="image" placeholder="Image..." value="{{ foodData.image }}">
-  <select name="categories" multiple>
-    <option value="no-category" selected>No Category</option>
-    {{#each categories}}
-      <option value="{{ this.id }}">{{ this.name }}</option>
-    {{/each}}
-  </select>
-  <input type="submit" value="Add">
-</form>
+<h1 class="p-4 text-3xl font-bold text-center">Add Food</h1>
+<div class="flex justify-center items-center">
+  <form class="w-5/12 flex flex-col gap-2" action="/food/addFood" method="POST">
+    <input class="border border-sky-300 rounded p-2" type="text" name="name" placeholder="Enter a Name..." value="{{ foodData.name }}">
+    <input class="border border-sky-300 rounded p-2" type="number" name="price" placeholder="Enter a Price..." value="{{ foodData.price }}">
+    <textarea class="border border-sky-300 rounded p-2" name="description" rows="3" placeholder="Enter a Description...">{{ foodData.description }}</textarea>
+    <input class="border border-sky-300 rounded p-2" type="text" name="image" placeholder="Image..." value="{{ foodData.image }}">
+    <select class="border border-solid border-gray-300 px-3 py-2" name="categories" multiple>
+      <option value="no-category" selected>No Category</option>
+      {{#each categories}}
+        <option value="{{ this.id }}">{{ this.name }}</option>
+      {{/each}}
+    </select>
+    <input class="rounded p-2 text-white font-bold bg-blue-600 hover:bg-blue-800 cursor-pointer transition-colors" type="submit" value="Add Food">
+  </form>
+</div>
 
-<h2>Add Category</h2>
-<form action="/food/addCategory?next=/food/addFood" method="POST">
-  <input type="text" name="name" placeholder="Category...">
-  <input type="submit" value="Add">
+<h2 class="p-2 text-2xl font-bold text-center">Add Category</h2>
+<form class="flex gap-2 justify-center" action="/food/addCategory?next=/food/addFood" method="POST">
+  <input class="w-80 border border-sky-300 rounded p-2" type="text" name="name" placeholder="Category...">
+  <input class="rounded p-2 text-white font-bold bg-blue-600 hover:bg-blue-800 cursor-pointer transition-colors" type="submit" value="Add">
 </form>
