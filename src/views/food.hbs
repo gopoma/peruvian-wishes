@@ -18,7 +18,7 @@
     {{/if}}
     {{#if (isRegular ../user.role)}}
       <form action="/orders/{{ this.id }}/add" method="POST">
-        <input class="p-2 text-lg text-white font-bold bg-slate-700 cursor-pointer" type="submit" value="Add">
+        <input class="inline-block h-max rounded-md px-2 py-1 text-md font-bold text-white bg-blue-700 cursor-pointer hover:bg-blue-800 transition-colors" type="submit" value="Add to Current Order">
       </form>
     {{/if}}
 
