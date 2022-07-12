@@ -6,7 +6,7 @@
         <span class="font-bold">Peruvian Wishes</span>
       </a>
     </div>
-    <div>
+    <div class="flex gap-2 justify-center items-center">
         {{#if (isAdmin user.role)}}
           <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/admin/users">Users</a>
         {{/if}}
@@ -16,8 +16,10 @@
         {{/if}}
         <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/food">Food</a>
         {{#if user.loggedIn}}
-          <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="#">{{ user.username }}</a>
-          <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/auth/logout">Logout</a>
+          <div class="relative">
+            <p id="profileDropdown" class="rounded-md px-3 py-2 text-gray-300 cursor-pointer hover:text-white hover:bg-gray-700 transition-colors">{{ user.username }}</p>
+            <a id="btnLogout" class="hidden absolute px-3 py-2 text-white bg-red-700 hover:bg-red-900 transition-colors" href="/auth/logout">Logout</a>
+          </div>
         {{else}}
           <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/auth/login">Login</a>
           <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/auth/signup">SignUp</a>
