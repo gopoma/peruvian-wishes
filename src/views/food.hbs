@@ -12,8 +12,8 @@
     <img class="w-100 h-56 rounded-tr-2xl rounded-bl-2xl" src="{{ this.image }}" alt="{{ this.name }}">
     {{#if (isAdmin ../user.role)}}
       <div class="flex gap-2">
-        <a class="inline-block p-2 text-lg font-bold text-white bg-red-700" href="/food/{{ this.id }}/edit">Edit</a>
-        <a class="inline-block p-2 text-lg font-bold text-white bg-red-700" href="/food/{{ this.id }}/delete">Delete</a>
+        <a class="inline-block h-max rounded-md px-2 py-1 text-md font-bold bg-yellow-400 hover:bg-yellow-500 transition-colors" href="/food/{{ this.id }}/edit">Edit</a>
+        <a class="inline-block h-max rounded-md px-2 py-1 text-md font-bold text-white bg-red-700 hover:bg-red-800 transition-colors" href="/food/{{ this.id }}/delete">Delete</a>
       </div>
     {{/if}}
     {{#if (isRegular ../user.role)}}
