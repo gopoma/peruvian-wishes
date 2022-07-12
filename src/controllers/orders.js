@@ -1,4 +1,5 @@
 const client = require("../libs/db");
+const transporter = require("../libs/email");
 
 class OrderController {
   static async getCurrentOrder(req, res) {
@@ -41,7 +42,7 @@ class OrderController {
 
   static async makeOrderComplete(req, res) {
     try {
-      const {activeOrder, id} = req.session.user;
+      const {username, activeOrder, id, email} = req.session.user;
 
       await client.order.update({
         where: {
@@ -50,6 +51,14 @@ class OrderController {
         data: {
           completed: true
         }
+      });
+
+      transporter.sendMail({
+        from: "'gopoma 🧐' <gordono@unsa.edu.pe>",
+        to: email,
+        subject: "Current order completed successfully 😊",
+        text: "Confirm order",
+        html: `<h1>Hello ${username}, thanks you to make an order in Peruvian Wishes!</h1>`
       });
 
       const newOrder = await client.order.create({
@@ -96,7 +105,7 @@ class OrderController {
         }
       }
     });
-    console.log(orders);
+
     return res.render("completed_orders", {
       messages: [{info:true && infoMessage, content:infoMessage}],
       orders
