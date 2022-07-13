@@ -1,8 +1,11 @@
-<section class="flex flex-col gap-2">
-  {{#each users}}
-    <article class="w-max rounded p-4 text-white bg-gray-800">
-      <h3 class="text-lg font-bold">{{this.username}}</h3>
-      <p>{{this.email}}</p>
-    </article>
-  {{/each}}
-</section>
+<h2 class="text-2xl font-bold">Bienvenido {{ user.username }}</h2>
+<p>Este sistema fue desarrollado haciendo uso de la <strong>Arquitectura Modelo Vista Controlador (MVC).</strong></p>
+<p>El sistema fué desarrollado usando estas tecnologías:</p>
+<ul class="pl-5 list-disc">
+  <li>HTML y CSS a través del framework TailwindCSS.</li>
+  <li>NodeJS para el backend a través del framework Express.</li>
+  <li>MySQL para la base de datos.</li>
+  <li>El ORM Prisma para la validación y modelado de objetos del modelo.</li>
+  <li>Handlebars para renderizar las vistas.</li>
+  <li>JavaScript para el frontend.</li>
+</ul>
