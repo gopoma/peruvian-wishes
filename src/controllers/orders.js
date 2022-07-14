@@ -125,7 +125,12 @@ class OrderController {
         food: {
           include: {
             food: true
-          }
+          },
+          orderBy: [
+            {
+              createdAt: "desc"
+            }
+          ]
         }
       },
       orderBy: [
