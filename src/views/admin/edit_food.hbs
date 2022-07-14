@@ -1,27 +1,37 @@
-<h1>Edit Food</h1>
+<h1 class="p-4 text-3xl font-bold text-center">Edit Food</h1>
+<div class="flex justify-center items-center">
+  <form class="w-5/12 flex flex-col gap-2" action="/food/{{ food.id }}/edit" method="POST">
+    <div class="flex items-center">
+      <label class="w-16 font-bold" for="name">Name:</label>
+      <input id="name" class="w-full border border-sky-300 rounded p-2" type="text" name="name" placeoholder="Enter a Name..." value="{{ food.name }}">
+    </div>
+    <div class="flex items-center">
+      <label class="w-16 font-bold" for="price">Price:</label>
+      <input id="price" class="w-full border border-sky-300 rounded p-2" type="number" name="price" placeholder="Enter a Price..." value="{{ food.price }}">
+    </div>
+    <div class="flex gap-2 items-start">
+      <label class="w-28 font-bold" for="description">Description:</label>
+      <textarea id="description" class="w-full border border-sky-300 rounded p-2" name="description" rows="3" placeholder="Enter a Description...">{{ food.description }}</textarea>
+    </div>
+    <div class="flex items-center">
+      <label class="w-16 font-bold" for="image">Image:</label>
+      <input id="image" class="w-full border border-sky-300 rounded p-2" type="text" name="image" placeholder="Image..." value="{{ food.image }}">
+    </div>
+    <div class="flex gap-2 items-start">
+      <label class="w-28 font-bold">Categories:</label>
+      <select class="w-full border border-solid border-gray-300 px-3 py-2" name="categories" multiple>
+        <option value="no-category" {{#if (isEmpty food.categories)}} selected {{/if}}>No category</option>
+        {{#each categories}}
+          <option value="{{ this.id }}" {{#if (contains ../food.categories this.id)}} selected {{/if}}>{{ this.name }}</option>
+        {{/each}}
+      </select>
+    </div>
+    <input class="rounded p-2 text-white font-bold bg-blue-600 hover:bg-blue-800 cursor-pointer transition-colors" type="submit" value="Edit Food">
+  </form>
+</div>
 
-<form action="/food/{{ food.id }}/edit" method="POST">
-  <input type="text" name="name" placeohlder="Name..." value="{{ food.name }}">
-  <input type="number" name="price" placeholder="Price..." value="{{ food.price }}">
-  <textarea name="description" cols="30" rows="10" placeholder="Description...">{{ food.description }}</textarea>
-  <input type="text" name="image" placeholder="Image..." value="{{ food.image }}">
-  <select name="categories" multiple>
-    <option value="no-category" {{#if (isEmpty food.categories)}} selected {{/if}}>No category</option>
-    {{#each categories}}
-      <option value="{{ this.id }}" {{#if (contains ../food.categories this.id)}} selected {{/if}}>{{ this.name }}</option>
-    {{/each}}
-  </select>
-  <input type="submit" value="Edit">
-</form>
-
-<ul>
-{{#each food.categories}}
-  <li>{{ this.categoryID }}</li>
-{{/each}}
-</ul>
-
-<h2>Add Category</h2>
-<form action="/food/addCategory?next=/food/{{ food.id }}/edit" method="POST">
-  <input type="text" name="name" placeholder="Category...">
-  <input type="submit" value="Add">
+<h2 class="p-2 text-2xl font-bold text-center">Add Category</h2>
+<form class="flex gap-2 justify-center" action="/food/addCategory?next=/food/{{ food.id }}/edit" method="POST">
+  <input class="w-80 border border-sky-300 rounded p-2" type="text" name="name" placeholder="Category...">
+  <input class="rounded p-2 text-white font-bold bg-blue-600 hover:bg-blue-800 cursor-pointer transition-colors" type="submit" value="Add Category">
 </form>
