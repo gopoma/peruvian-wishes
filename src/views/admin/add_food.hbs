@@ -1,4 +1,8 @@
-<h1 class="p-4 text-3xl font-bold text-center">Add Food</h1>
+<header class="p-4 flex gap-2 justify-center items-center">
+  <h1 class="text-3xl font-bold text-center">Add Food</h1>
+  <a class="inline-block h-max rounded-md px-3 py-2 text-md font-bold text-white bg-red-700 hover:bg-red-800 transition-colors" href="/food">Cancel</a>
+</header>
+
 <div class="flex justify-center items-center">
   <form class="w-5/12 flex flex-col gap-2" action="/food/addFood" method="POST">
     <input class="border border-sky-300 rounded p-2" type="text" name="name" placeholder="Enter a Name..." value="{{ foodData.name }}">
