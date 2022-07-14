@@ -1,1 +1,27 @@
-<h1>Completed Orders</h1>
+<h1 class="p-4 text-3xl font-bold text-center">Completed Orders</h1>
+<section class="flex flex-col gap-2">
+{{#each completedOrders}}
+  <article class="border-4 border-black p-4 flex flex-col gap-2 bg-yellow-200">
+    <div>
+      <p><b>Ticket: </b>{{ this.id }}</p>
+      <p><b>Total: </b>${{ this.total }}</p>
+    </div>
+    <button class="w-max rounded p-2 text-white font-bold bg-blue-600 hover:bg-blue-800 cursor-pointer transition-colors" onclick="showDishes('{{ this.id }}')">Show details 😊</button>
+    <div id="item-{{ this.id }}" class="hidden">
+      <div class="flex flex-col gap-2">
+      {{#each this.dishes}}
+        <div class="border-4 border-black p-4 flex gap-4 items-center bg-blue-300">
+          <img class="w-40 h-40" src="{{ this.food.image }}" alt="{{ this.food.name }}">
+          <div>
+            <p><b>Amount: </b>{{ this.amount }}</p>
+            <p><b>Food Name: </b>{{ this.food.name }}</p>
+            <p><b>Single Price: </b>${{ this.food.price }}</p>
+            <p><b>Partial Total: </b>${{ mul this.amount this.food.price }}</p>
+          </div>
+        </div>
+      {{/each}}
+      </div>
+    </div>
+  </article>
+{{/each}}
+</section>

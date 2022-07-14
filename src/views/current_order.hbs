@@ -5,7 +5,7 @@
 {{else}}
   <form class="flex gap-2 items-center" action="/orders/complete" method="POST">
     <p class="text-xl"><strong>Total: </strong>${{ total }}</p>
-    <input class=  "rounded p-2 text-white font-bold bg-blue-600 hover:bg-blue-800 cursor-pointer transition-colors" type="submit" value="Complete Current Order">
+    <input class="rounded p-2 text-white font-bold bg-blue-600 hover:bg-blue-800 cursor-pointer transition-colors" type="submit" value="Complete Current Order">
   </form>
   {{#each items}}
     <article class="p-4 border-4 border-black flex gap-4 items-center bg-yellow-200">

@@ -1,5 +1,6 @@
 const client = require("../libs/db");
 const transporter = require("../libs/email");
+const uuid = require("uuid");
 
 class OrderController {
   static async getCurrentOrder(req, res) {
@@ -127,12 +128,27 @@ class OrderController {
             food: true
           }
         }
-      }
+      },
+      orderBy: [
+        {
+          id: "desc"
+        }
+      ]
     });
 
+    const completedOrders = orders.map(function(order) {
+      const total = order.food.reduce((result, item) => {
+        return result + item.amount * item.food.price;
+      }, 0);
+      return {
+        id: order.id,
+        dishes: order.food,
+        total
+      };
+    });
     return res.render("completed_orders", {
       messages: [{info:true && infoMessage, content:infoMessage}],
-      orders
+      completedOrders
     });
   }
 

@@ -1,3 +1,9 @@
+/* eslint-disable */
+function showDishes(idOrder) {
+  document.querySelector(`#item-${idOrder}`)?.classList.toggle("hidden");
+}
+/* eslint-enable */
+
 document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll(".message__closer").forEach(message => {
     message.onclick = function() {
