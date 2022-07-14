@@ -1,6 +1,5 @@
 const client = require("../libs/db");
 const transporter = require("../libs/email");
-const uuid = require("uuid");
 
 class OrderController {
   static async getCurrentOrder(req, res) {
