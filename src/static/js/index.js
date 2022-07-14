@@ -12,6 +12,13 @@ document.addEventListener("DOMContentLoaded", function() {
     };
   }
 
+  const ordersDropdown = document.querySelector("#ordersDropdown");
+  if(ordersDropdown) {
+    ordersDropdown.onclick = function() {
+      document.querySelector("#ordersLinks").classList.toggle("hidden");
+    };
+  }
+
   const profileDropdown = document.querySelector("#profileDropdown");
   if(profileDropdown) {
     profileDropdown.onclick = function() {
@@ -23,6 +30,9 @@ document.addEventListener("DOMContentLoaded", function() {
 document.onclick = function(evt) {
   if(evt.target.id !== "adminSiteDropdown") {
     document.querySelector("#btnAdminSiteUsers")?.classList.add("hidden");
+  }
+  if(evt.target.id !== "ordersDropdown") {
+    document.querySelector("#ordersLinks")?.classList.add("hidden");
   }
   if(evt.target.id !== "profileDropdown") {
     document.querySelector("#btnLogout")?.classList.add("hidden");
