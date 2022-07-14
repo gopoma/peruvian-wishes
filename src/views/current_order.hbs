@@ -1,20 +1,27 @@
-<h1>Current Order</h1>
-<form action="/orders/complete" method="POST">
-  <input class="p-2 text-white font-bold bg-blue-900 cursor-pointer" type="submit" value="Complete">
-</form>
-<p><b>Total: </b>${{ total }}</p>
+<h1 class="text-3xl font-bold text-center">Current Order</h1>
 <section class="flex flex-col gap-2">
-{{#each items}}
-  <article class="border-4 border-black p-2 bg-green-400">
-    {{#if (isRegular ../user.role)}}
-      <form action="/orders/{{ this.food.id }}/delete" method="POST">
-        <input class="p-2 font-bold bg-yellow-400 cursor-pointer" type="submit" value="Delete from Order">
-      </form>
-    {{/if}}
-    <p><b>Amount: </b>{{ this.amount }}</p>
-    <p><b>Food Name: </b>{{ this.food.name }}</p>
-    <p><b>Single Price: </b>${{ this.food.price }}</p>
-    <p><b>Partial Total: </b>${{ mul this.amount this.food.price }}</p>
-  </article>
-{{/each}}
+{{#if (isEmpty items)}}
+  <p class="text-xl">There are no items in your Current Order...</p>
+{{else}}
+  <form class="flex gap-2 items-center" action="/orders/complete" method="POST">
+    <p class="text-xl"><strong>Total: </strong>${{ total }}</p>
+    <input class=  "rounded p-2 text-white font-bold bg-blue-600 hover:bg-blue-800 cursor-pointer transition-colors" type="submit" value="Complete Current Order">
+  </form>
+  {{#each items}}
+    <article class="p-4 border-4 border-black flex gap-4 items-center bg-yellow-200">
+      <img class="w-40 h-40" src="{{ this.food.image }}" alt="{{ this.food.name }}">
+      <div>
+        {{#if (isRegular ../user.role)}}
+          <form action="/orders/{{ this.food.id }}/delete" method="POST">
+            <input class="rounded p-2 font-bold text-white bg-red-700 hover:bg-red-800 cursor-pointer transition-colors" type="submit" value="Delete from Order">
+          </form>
+        {{/if}}
+        <p><b>Amount: </b>{{ this.amount }}</p>
+        <p><b>Food Name: </b>{{ this.food.name }}</p>
+        <p><b>Single Price: </b>${{ this.food.price }}</p>
+        <p><b>Partial Total: </b>${{ mul this.amount this.food.price }}</p>
+      </div>
+    </article>
+  {{/each}}
+{{/if}}
 </section>
