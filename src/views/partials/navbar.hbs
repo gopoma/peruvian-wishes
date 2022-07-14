@@ -16,9 +16,11 @@
         {{#if (isRegular user.role)}}
           <div class="relative">
             <p id="ordersDropdown" class="rounded-md px-3 py-2 text-gray-300 cursor-pointer hover:text-white hover:bg-gray-700 transition-colors">Orders</p>
-            <div id="ordersLinks" class="hidden absolute w-max flex flex-col">
-              <a class="px-3 py-2 text-white bg-blue-600 hover:bg-blue-800 transition-colors" href="/orders">Current Order</a>
-              <a class="px-3 py-2 text-white bg-blue-600 hover:bg-blue-800 transition-colors" href="/orders/completed">Completed Orders</a>
+            <div id="ordersLinks" class="hidden absolute">
+              <div class="w-max flex flex-col">
+                <a class="px-3 py-2 text-white bg-blue-600 hover:bg-blue-800 transition-colors" href="/orders">Current Order</a>
+                <a class="px-3 py-2 text-white bg-blue-600 hover:bg-blue-800 transition-colors" href="/orders/completed">Completed Orders</a>
+              </div>
             </div>
           </div>
         {{/if}}
