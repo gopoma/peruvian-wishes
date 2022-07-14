@@ -1,6 +1,8 @@
-<h1>Borrando Food</h1>
-<h3>{{ food.name }}</h3>
-<p>Confirme que desea borrar a este food</p>
-<form action="/food/{{ food.id }}/delete" method="POST">
-  <input class="p-2 text-white bg-yellow-600 cursor-pointer" type="submit" value="Confirmar">
-</form>
+<div class="flex flex-col gap-2">
+  <h1 class="text-3xl font-bold">Are you sure?</h1>
+  <p class="text-xl">Are you sure that you wanna delete Food <b>'{{ food.name }}'</b>?</p>
+  <form class="flex gap-2 items-center" action="/food/{{ food.id }}/delete" method="POST">
+    <input class="rounded p-2 text-white font-bold bg-red-700 hover:bg-red-800 cursor-pointer transition-colors" type="submit" value="Confirmar">
+    <a class="rounded p-2 text-white font-bold bg-slate-700 hover:bg-slate-800 transition-colors" href="/food">No, take me back</a>
+  </form>
+</div>
