@@ -1,11 +1,13 @@
-<h1>Users</h1>
+<header class="p-4 flex flex-col gap-2 justify-center">
+  <h1 class="text-3xl font-bold">Users</h1>
+  <p class="text-xl text-slate-600">Select user to change</p>
+</header>
 
 <section class="flex flex-col gap-2">
 {{#each users}}
-  <article class="p-2 text-white bg-slate-600">
-    <a href="/admin/users/{{ this.id }}">{{this.username}}</a>
-    <a class="p-2 text-white bg-yellow-600 cursor-pointer" href="/admin/users/{{ this.id }}/delete">Delete</a>
+  <article class="border-4 border-black p-4 flex gap-2 items-center bg-yellow-200">
+    <a class="w-24 text-lg font-bold" href="/admin/users/{{ this.id }}">{{ this.username }}</a>
+    <a class="inline-block h-max rounded-md px-3 py-2 text-md font-bold text-white bg-red-700 hover:bg-red-800 transition-colors" href="/admin/users/{{ this.id }}/delete">Delete</a>
   </article>
 {{/each}}
 </section>
-  
