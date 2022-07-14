@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-2">
   <h1 class="text-3xl font-bold">Are you sure?</h1>
-  <p class="text-xl">Are you sure that you wanna delete User <b>'{{ this.username }}'</b>?</p>
+  <p class="text-xl">Are you sure that you wanna delete User <b>'{{ user.username }}'</b>?</p>
   <form class="flex gap-2 items-center" action="/admin/users/{{ user.id }}/delete" method="POST">
     <input class="rounded p-2 text-white font-bold bg-red-700 hover:bg-red-800 cursor-pointer transition-colors" type="submit" value="Delete">
     <a class="rounded p-2 text-white font-bold bg-slate-700 hover:bg-slate-800 transition-colors" href="/admin/users">No, take me back</a>
