@@ -49,6 +49,25 @@ class OrderController {
     try {
       const {username, activeOrder, id, email} = req.session.user;
 
+      const currentOrder = await client.order.findUnique(
+        {
+          where: {
+            id: activeOrder
+          },
+          include: {
+            food: {
+              include: {
+                food: true
+              }
+            }
+          }
+        }
+      );
+      if(currentOrder.food.length === 0) {
+        await req.flash("error", "There are no items in your Current Order");
+        return res.redirect("/orders");
+      }
+
       await client.order.update({
         where: {
           id: activeOrder
