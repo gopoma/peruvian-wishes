@@ -5,7 +5,7 @@ const FoodController = require("../controllers/food");
 function food(app) {
   const router = express.Router();
   app.use("/food", router);
-  router.use(authValidation({requiredRole:"ADMIN", excent:["/"]}));
+  router.use(authValidation({requiredRole:"ADMIN", excent:["/", "/search"]}));
 
   router.get("/", FoodController.getAll);
   router.get("/addFood", FoodController.getAddForm);
@@ -15,6 +15,7 @@ function food(app) {
   router.post("/:idFood/edit", FoodController.edit);
   router.get("/:idFood/delete", FoodController.getDeleteConfirmation);
   router.post("/:idFood/delete", FoodController.delete);
+  router.get("/search", FoodController.search);
 }
 
 module.exports = food;

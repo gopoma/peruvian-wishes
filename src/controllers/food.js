@@ -18,13 +18,16 @@ class FoodController {
         }
       ]
     });
+    const categories = await client.category.findMany();
 
     return res.render("food", {
       messages:[
         {info:true && infoMessage, content:infoMessage},
         {error:true && errorMessage, content:errorMessage}
       ],
-      food
+      food,
+      categories,
+      showSearchBar: true
     });
   }
 
@@ -213,6 +216,55 @@ class FoodController {
       return res.redirect("/food");
     } catch(error) {
       await req.flash("error", "Failed to delete food");
+      return res.redirect("/food");
+    }
+  }
+
+  static async search(req, res) {
+    try {
+      const {name, category} = req.query;
+      let queryBody = {};
+      if(name) {
+        queryBody = {
+          ...queryBody,
+          name: {
+            contains: name,
+            mode: "insensitive"
+          }
+        };
+      }
+      if(category !== "any-category") {
+        queryBody = {
+          ...queryBody,
+          categories: {
+            some: {
+              categoryID: parseInt(category)
+            }
+          }
+        };
+      }
+      const food = await client.food.findMany({
+        where: {
+          ...queryBody
+        },
+        include: {
+          categories: {
+            include: {
+              category:true
+            }
+          }
+        }
+      });
+
+      const categories = await client.category.findMany();
+      return res.render("food", {
+        food,
+        categories,
+        showSearchBar: true
+      });
+    } catch(error) {
+      console.log(error);
+      await req.flash("error", "A wild Error has appeared");
       return res.redirect("/food");
     }
   }

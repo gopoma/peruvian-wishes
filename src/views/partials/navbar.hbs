@@ -7,33 +7,45 @@
       </a>
     </div>
     <div class="flex gap-2 justify-center items-center">
-        {{#if (isAdmin user.role)}}
-          <div class="relative">
-            <p id="adminSiteDropdown" class="rounded-md px-3 py-2 text-gray-300 cursor-pointer hover:text-white hover:bg-gray-700 transition-colors">Admin Site</p>
-            <a id="btnAdminSiteUsers" class="hidden absolute px-3 py-2 text-white bg-blue-600 hover:bg-blue-800 transition-colors" href="/admin/users">Users</a>
-          </div>
-        {{/if}}
-        {{#if (isRegular user.role)}}
-          <div class="relative">
-            <p id="ordersDropdown" class="rounded-md px-3 py-2 text-gray-300 cursor-pointer hover:text-white hover:bg-gray-700 transition-colors">Orders</p>
-            <div id="ordersLinks" class="hidden absolute">
-              <div class="w-max flex flex-col">
-                <a class="px-3 py-2 text-white bg-blue-600 hover:bg-blue-800 transition-colors" href="/orders">Current Order</a>
-                <a class="px-3 py-2 text-white bg-blue-600 hover:bg-blue-800 transition-colors" href="/orders/completed">Completed Orders</a>
-              </div>
+      {{#if showSearchBar}}
+        <form action="/food/search">
+          <select class="border border-solid border-gray-300 px-3 py-2 text-black bg-gray-200" name="category">
+            <option value="any-category">Any Category</option>
+            {{#each categories}}
+              <option value="{{ this.id }}">{{ this.name }}</option>
+            {{/each}}
+          </select>
+          <input class="border border-sky-300 rounded p-2 text-black bg-gray-200" type="search" name="name">
+          <input class="rounded-md px-3 py-2 text-white bg-blue-600 cursor-pointer transition-colors hover:bg-blue-800" type="submit" value="Search">
+        </form>
+      {{/if}}
+      <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/food">Food</a>
+      {{#if (isAdmin user.role)}}
+        <div class="relative">
+          <p id="adminSiteDropdown" class="rounded-md px-3 py-2 text-gray-300 cursor-pointer hover:text-white hover:bg-gray-700 transition-colors">Admin Site</p>
+          <a id="btnAdminSiteUsers" class="hidden absolute px-3 py-2 text-white bg-blue-600 hover:bg-blue-800 transition-colors" href="/admin/users">Users</a>
+        </div>
+      {{/if}}
+      {{#if (isRegular user.role)}}
+        <div class="relative">
+          <p id="ordersDropdown" class="rounded-md px-3 py-2 text-gray-300 cursor-pointer hover:text-white hover:bg-gray-700 transition-colors">Orders</p>
+          <div id="ordersLinks" class="hidden absolute">
+            <div class="w-max flex flex-col">
+              <a class="px-3 py-2 text-white bg-blue-600 hover:bg-blue-800 transition-colors" href="/orders">Current Order</a>
+              <a class="px-3 py-2 text-white bg-blue-600 hover:bg-blue-800 transition-colors" href="/orders/completed">Completed Orders</a>
             </div>
           </div>
-        {{/if}}
-        <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/food">Food</a>
-        {{#if user.loggedIn}}
-          <div class="relative">
-            <p id="profileDropdown" class="rounded-md px-3 py-2 text-gray-300 cursor-pointer hover:text-white hover:bg-gray-700 transition-colors">{{ user.username }}</p>
-            <a id="btnLogout" class="hidden absolute px-3 py-2 text-white bg-red-700 hover:bg-red-900 transition-colors" href="/auth/logout">Logout</a>
-          </div>
-        {{else}}
-          <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/auth/login">Login</a>
-          <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/auth/signup">SignUp</a>
-        {{/if}}
+        </div>
+      {{/if}}
+      {{#if user.loggedIn}}
+        <div class="relative">
+          <p id="profileDropdown" class="rounded-md px-3 py-2 text-gray-300 cursor-pointer hover:text-white hover:bg-gray-700 transition-colors">{{ user.username }}</p>
+          <a id="btnLogout" class="hidden absolute px-3 py-2 text-white bg-red-700 hover:bg-red-900 transition-colors" href="/auth/logout">Logout</a>
+        </div>
+      {{else}}
+        <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/auth/login">Login</a>
+        <a class="rounded-md px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors" href="/auth/signup">SignUp</a>
+      {{/if}}
     </div>
   </ul>
 </nav>
