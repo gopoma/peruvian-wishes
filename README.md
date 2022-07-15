@@ -14,7 +14,7 @@ El sistema fué desarrollado usando estas tecnologías:
 * `JavaScript` para el frontend.
 * `ESLint` para la estandarización de código.
 * El Servidor SMTP `mailtrap` para el envío de Correos Electrónicos.
-* El despliegue fue realizado en `Heroku`.
+gi* El despliegue fue realizado en la Plataforma como Servicio (PaaS) `Heroku`.
 
 **Librerias empleadas en el lado del Servidor:**
 
