@@ -12,6 +12,7 @@ El sistema fué desarrollado usando estas tecnologías:
 * El ORM `Prisma` para la validación y modelado de objetos del modelo.
 * `Handlebars` para renderizar las vistas.
 * `JavaScript` para el frontend.
+* `ESLint` para la estandarización de código.
 * El Servidor SMTP `mailtrap` para el envío de Correos Electrónicos.
 * El despliegue fue realizado en `Heroku`.
 
