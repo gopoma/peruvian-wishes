@@ -10,6 +10,7 @@
     "dev": "npm-run-all -p -r css start-dev",
     "lint": "npx eslint .",
     "start": "node src/index.js",
+    "createsuperuser": "node src/admin.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
