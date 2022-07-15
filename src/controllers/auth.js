@@ -1,5 +1,6 @@
 const client = require("../libs/db");
 const { encrypt, compare } = require("../helpers/encrypt");
+const transporter = require("../libs/email");
 
 class AuthController {
   static getSignUpForm(req, res) {
@@ -55,6 +56,17 @@ class AuthController {
         loggedIn: true,
         ...userWithOrder
       };
+
+      transporter.sendMail({
+        from: "'gopoma 😊' <gordono@unsa.edu.pe>",
+        to: req.session.user.email,
+        subject: "Your registration has been successfully completed 😊!",
+        template: "completed_signup",
+        context: {
+          customer: req.session.user
+        }
+      });
+
       await req.flash("info", "User registered successfully");
       return res.redirect("/");
     } catch(error) {
