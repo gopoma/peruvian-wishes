@@ -25,7 +25,8 @@ rl.question("Enter a username: ", function(username) {
           });
           rl.close();
         } catch(error) {
-          process.stderr.write("Passwords don't match");
+          console.log(error);
+          process.stderr.write("A wild Error has appeared!");
           process.exit(1);
         }
       });
