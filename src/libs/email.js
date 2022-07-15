@@ -1,4 +1,6 @@
 const nodemailer = require("nodemailer");
+const hbs = require("nodemailer-express-handlebars");
+const path = require("path");
 const {
   emailHost,
   emailPort,
@@ -14,6 +16,15 @@ const transporter = nodemailer.createTransport({
     pass: emailPassword
   }
 });
+
+transporter.use("compile", hbs({
+  viewEngine: {
+    extname: ".hbs",
+    defaultLayout: false
+  },
+  viewPath: path.join(__dirname, "..", "views", "emails"),
+  extName: ".hbs",
+}));
 
 transporter.verify(function(error, success) {
   if(success) {

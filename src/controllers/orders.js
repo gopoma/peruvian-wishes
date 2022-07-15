@@ -47,7 +47,7 @@ class OrderController {
 
   static async makeOrderComplete(req, res) {
     try {
-      const {username, activeOrder, id, email} = req.session.user;
+      const {activeOrder, id, email} = req.session.user;
 
       const currentOrder = await client.order.findUnique(
         {
@@ -81,8 +81,10 @@ class OrderController {
         from: "'gopoma 🧐' <gordono@unsa.edu.pe>",
         to: email,
         subject: "Current order completed successfully 😊",
-        text: "Confirm order",
-        html: `<h1>Hello ${username}, thanks you to make an order in Peruvian Wishes!</h1>`
+        template: "completed_current_order",
+        context: {
+          customer: req.session.user
+        }
       });
 
       const newOrder = await client.order.create({
