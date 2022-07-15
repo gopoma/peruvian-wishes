@@ -2,6 +2,36 @@
 
 A BackEnd aplication inspired by Rappi.
 
+Este sistema fue desarrollado haciendo uso de la **Arquitectura** `Modelo Vista Controlador (MVC)`.
+
+El sistema fué desarrollado usando estas tecnologías:
+
+* `HTML` y `CSS` a través del framework `TailwindCSS`.
+* `NodeJS` para el backend a través del framework `Express`.
+* `PostgreSQL` para la base de datos.
+* El ORM `Prisma` para la validación y modelado de objetos del modelo.
+* `Handlebars` para renderizar las vistas.
+* `JavaScript` para el frontend.
+
+**Librerias empleadas en el lado del Servidor:**
+
+* `@prisma/client`
+* `bcrypt`
+* `dotenv`
+* `express`
+* `express-flash-message`
+* `express-handlebars`
+* `express-session`
+* `nodemailer`
+* `nodemailer-express-handlebars`
+* `prisma`
+
+## Modelado del Problema
+
+**Diagrama Entidad - Relación:**
+
+![Diagrama Entidad - Relación](entity_relation_diagram.png)
+
 ## Documentación Interna
 
 ### Flujo de Solución
