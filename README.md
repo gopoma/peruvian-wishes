@@ -2,6 +2,13 @@
 
 A BackEnd aplication inspired by Rappi.
 
+**Disclaimer:** To work with the application in development, run the following **before** visiting the application's URL:
+
+```bash
+docker exec app npx prisma migrate dev
+docker exec -it app npm run createsuperuser # Starts an interactive session to create a superuser
+```
+
 Este sistema fue desarrollado haciendo uso de la **Arquitectura** `Modelo Vista Controlador (MVC)`.
 
 El sistema fué desarrollado usando estas tecnologías:

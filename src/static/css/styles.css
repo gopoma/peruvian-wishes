@@ -659,12 +659,12 @@ video {
   width: 7rem;
 }
 
-.w-24 {
-  width: 6rem;
-}
-
 .w-4 {
   width: 1rem;
+}
+
+.w-24 {
+  width: 6rem;
 }
 
 .max-w-7xl {
