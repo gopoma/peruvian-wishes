@@ -11,6 +11,7 @@
     "dev": "dotenv -e .env.development -- cross-env NODE_ENV=development npm-run-all -p -r css start-dev",
     "lint": "npx eslint .",
     "start": "dotenv -e .env.production -- cross-env NODE_ENV=production node ./src/index.js",
+    "start:prod": "cross-env NODE_ENV=production node ./src/index.js",
     "createsuperuser:dev": "dotenv -e .env.development -- node src/admin.js",
     "createsuperuser:prod": "dotenv -e .env.production -- node src/admin.js"
   },
