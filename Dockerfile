@@ -1,7 +1,5 @@
 FROM node:18-alpine
 
-ARG DATABASE_URL
-
 ENV PORT=4000
 
 WORKDIR /app
