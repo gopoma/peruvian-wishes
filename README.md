@@ -4,19 +4,29 @@ A BackEnd aplication inspired by Rappi.
 
 ### Getting Started
 
+* In a terminal, install all the dependencies by executing the following command:
+
 ```bash
 npm install
+```
 
-# Development
+* Then, create a `.env.development` file taking into consideration `.env.example`, filling all the assignments.
+
+* Finally, spawn a database, run the migrations, create the superuser, and run the development server by executing the following commands:
+
+```bash
 docker compose -f docker-compose.dev.yaml up # spawns a MySQL database
 npm run migrate:mysql:dev
 npm run createsuperuser:dev
 npm run dev
+```
 
-# Production
-docker compose up
+* If you want to run in a isolated production environment, create a `.env.production` file taking into consideration `.env`, and run the production server by executing the following commands:
+
+```bash
 npm run migrate:mysql:prod
 npm run createsuperuser:prod
+docker compose up
 ```
 
 Este sistema fue desarrollado haciendo uso de la **Arquitectura** `Modelo Vista Controlador (MVC)`.
