@@ -4,6 +4,7 @@ const path = require("path");
 const {
   emailHost,
   emailPort,
+  emailSecure,
   emailUsername,
   emailPassword
 } = require("../config");
@@ -11,6 +12,7 @@ const {
 const transporter = nodemailer.createTransport({
   host: emailHost,
   port: emailPort,
+  secure: emailSecure,
   auth: {
     user: emailUsername,
     pass: emailPassword

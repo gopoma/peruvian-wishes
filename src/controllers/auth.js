@@ -58,7 +58,7 @@ class AuthController {
       };
 
       transporter.sendMail({
-        from: "'gopoma 😊' <gordono@unsa.edu.pe>",
+        from: "'gopoma 😊' <GustavoEdu10111213@gmail.com>",
         to: req.session.user.email,
         subject: "Your registration has been successfully completed 😊!",
         template: "completed_signup",

@@ -78,7 +78,7 @@ class OrderController {
       });
 
       transporter.sendMail({
-        from: "'gopoma 🧐' <gordono@unsa.edu.pe>",
+        from: "'gopoma 😊' <GustavoEdu10111213@gmail.com>",
         to: email,
         subject: "Current order completed successfully 😊",
         template: "completed_current_order",

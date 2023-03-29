@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: PeruvianWishesDev
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./dbdata:/var/lib/mysql"
